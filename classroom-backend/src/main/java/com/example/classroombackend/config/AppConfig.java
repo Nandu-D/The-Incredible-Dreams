@@ -21,7 +21,7 @@ public class AppConfig {
             @Override
             public ClientHttpResponse intercept(HttpRequest httpRequest, byte[] bytes, ClientHttpRequestExecution clientHttpRequestExecution) throws IOException {
                 httpRequest.getHeaders().set("Accept-Version", "v1");
-                httpRequest.getHeaders().set("Authorization", "Client-ID rTL2Zuw0043YHln7jnlUZde8QKWnv4PdCdkyEjYK20Q");
+                httpRequest.getHeaders().set("Authorization", "");
                 httpRequest.getHeaders().set("Set-Cookie", "SameSite=strict");//Added to remove same site cookie warning in angular console
                 return clientHttpRequestExecution.execute(httpRequest, bytes);
             }
