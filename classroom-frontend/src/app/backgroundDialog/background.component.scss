@@ -1,0 +1,38 @@
+mat-dialog-actions {
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+}
+
+// mat-dialog-content {
+//     display: grid;
+//     align-items: center;
+//     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+// }
+
+// mat-dialog-content > div {
+//     width: 200px;
+//     height: 200px;
+//     object-fit: cover;
+// }
+
+mat-dialog-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+mat-dialog-content > div {
+    max-height: 200px;
+    max-width: 200px;
+}
+
+div > img {
+    min-height: 200px;
+    min-width: 200px;
+    object-fit: cover;
+    vertical-align: bottom;
+}
+
+.card:hover {
+    border: yellowgreen solid 1px;
+}
