@@ -3,16 +3,24 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './components/app/app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BackgroundComponent } from './backgroundDialog/background.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { HomeComponent } from './components/home/home.component';
+import { ScreenComponent } from './components/screen/screen.component';
+import { AngularMaterialModule } from './angular-material.module';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BackgroundComponent
+    BackgroundComponent,
+    HomeComponent,
+    ScreenComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     NgbModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    AngularMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
