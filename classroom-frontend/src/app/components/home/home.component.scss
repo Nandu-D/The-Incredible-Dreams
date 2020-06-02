@@ -1,0 +1,34 @@
+.full-window {
+    display: flex;
+    flex-direction: column;
+    background-color: silver;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+header {
+    padding: 0px;
+    margin: 0px;
+}
+
+mat-toolbar {
+    background-color: #171738;
+}
+
+.name {
+    color: #DFF3E4;
+}
+
+a {
+    color: #171D1C;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background-color: #EFE9F4;
+    border-radius: 1px;
+    text-decoration: none;
+    margin-right: 0.5rem;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}

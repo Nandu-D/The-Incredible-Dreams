@@ -1,0 +1,28 @@
+.login-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+mat-card {
+    width: 300px;
+}
+
+.button {
+    color: #171D1C;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background-color: #EFE9F4;
+    border-radius: 1px;
+    text-decoration: none;
+    margin-right: 0.5rem;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    flex-grow: 1;
+}
