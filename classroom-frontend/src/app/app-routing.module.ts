@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { AppComponent } from './components/app/app.component';
 import { ScreenComponent } from './components/screen/screen.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AuthGuard } from './auth/auth.guard';
 
 
 const routes: Routes = [
@@ -29,11 +29,12 @@ const routes: Routes = [
   },
   {
     path: "screen",
-    component: ScreenComponent
+    component: ScreenComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "**", 
-    component: HomeComponent
+    redirectTo: 'home'
   }
 ];
 

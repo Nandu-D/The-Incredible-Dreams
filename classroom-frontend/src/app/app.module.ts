@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
@@ -12,6 +12,10 @@ import { ScreenComponent } from './components/screen/screen.component';
 import { AngularMaterialModule } from './angular-material.module';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { FormsModule } from '@angular/forms';
+import { RegisterLoginLogoutService } from './services/register-logon-logout/register-login-logout.service';
+import { AuthGuard } from './auth/auth.guard';
+import { TokenInterceptorService } from './auth/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -28,9 +32,14 @@ import { RegisterComponent } from './components/register/register.component';
     HttpClientModule,
     NgbModule,
     BrowserAnimationsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [RegisterLoginLogoutService, AuthGuard, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

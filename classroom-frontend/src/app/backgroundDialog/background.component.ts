@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { BackgroundImageService } from '../services/background-image.service';
+import { BackgroundImageService } from '../services/background-image/background-image.service';
 import { ImageResponseModel } from '../models/Image.response.model';
 import { ImageDetailModel } from '../models/image.details.model';
 

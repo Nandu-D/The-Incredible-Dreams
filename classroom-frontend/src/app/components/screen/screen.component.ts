@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { BackgroundComponent } from '../../backgroundDialog/background.component';
+import { RegisterLoginLogoutService } from 'src/app/services/register-logon-logout/register-login-logout.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-screen',
@@ -16,7 +18,9 @@ export class ScreenComponent implements OnInit {
     console.log('in screen')
   }
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, 
+    private registerLoginLogoutServcie: RegisterLoginLogoutService,
+    private router: Router) {}
 
   openDialog() {
       const dialogConfig = new MatDialogConfig();
