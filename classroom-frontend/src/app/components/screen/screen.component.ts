@@ -34,4 +34,10 @@ export class ScreenComponent implements OnInit {
         }
       });
   }
+
+  logout() {
+    this.registerLoginLogoutServcie.logout();
+    this.router.navigate(['/home'], {queryParams: {'logout_success': 'true'}});
+  }
+ 
 }
