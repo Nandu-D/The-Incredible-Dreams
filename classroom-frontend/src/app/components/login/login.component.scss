@@ -8,6 +8,10 @@ mat-card {
     width: 300px;
 }
 
+::ng-deep .mat-card-header-text {
+    margin: 0px !important;
+}
+
 .button {
     color: #171D1C;
     padding-left: 0.5rem;
@@ -25,4 +29,12 @@ label {
 
 input {
     flex-grow: 1;
+}
+
+.message {
+    color: green;
+}
+
+.error-message {
+    color: red;
 }

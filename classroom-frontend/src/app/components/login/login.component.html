@@ -4,17 +4,20 @@
             <h2>Login</h2>
         </mat-card-header>
         <mat-card-content>
+            <h3 class="message" [hidden]="isMessageHidden">{{message}}</h3>
             <form action="" method="POST">
                 <label class="form-group">
                     Email<br>
-                    <input type="email" class="form-control" name="email" id="email">
+                    <input type="email" class="form-control" [(ngModel)]="email"
+                     name="email" id="email">
                 </label>
                 <label class="form-group">
                     Password<br>
-                    <input type="password" class="form-control" name="password" id="password">
+                    <input type="password" class="form-control" [(ngModel)]="password"
+                    name="password" id="password">
                 </label>
-                <br>
-                <input type="button" class="button btn" value="Login">
+                <label class="form-group error-message">{{ errorMessage }}</label>
+                <input (click)="login()" type="button" class="button btn" value="Login">
                 <br>
                 <br>
                 <h4>Forgot Password</h4>

@@ -7,26 +7,31 @@
             <form action="" method="POST">
                 <label class="form-group">
                     First Name<br>
-                    <input type="text" class="form-control" name="firstname" id="firstname">
+                    <input type="text" class="form-control" [(ngModel)]='firstname'
+                    name="firstname" id="firstname">
                 </label>
                 <label class="form-group">
                     Last Name<br>
-                    <input type="text" class="form-control" name="lastname" id="lastname">
+                    <input type="text" class="form-control" [(ngModel)]="lastname"
+                     name="lastname" id="lastname">
                 </label>
                 <label class="form-group">
                     Email<br>
-                    <input type="email" class="form-control" name="email" id="email">
+                    <input type="email" class="form-control" [(ngModel)]="email"
+                     name="email" id="email">
                 </label>
                 <label class="form-group">
                     Password<br>
-                    <input type="password" class="form-control" name="password" id="password">
+                    <input type="password" class="form-control" [(ngModel)]="password"
+                    name="password" id="password">
                 </label>
                 <label class="form-group">
                     Confirm Password<br>
-                    <input type="password" class="form-control" name="confirmpassword" id="confirmpassword">
+                    <input type="password" class="form-control" [(ngModel)]="confirmpassword"
+                     name="confirmpassword" id="confirmpassword">
                 </label>
-                <br>
-                <input type="button" class="button btn" value="Register">
+                <label class="form-group error-message">{{ errorMessage }}</label>
+                <input (click)="register()" type="button" class="button btn" value="Register">
             </form>
         </mat-card-content>
     </mat-card>

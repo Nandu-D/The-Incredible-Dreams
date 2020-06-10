@@ -1,5 +1,3 @@
-import { Deserializable } from './deserializable.model';
-
 export class ImageDetailModel{
 
     width: number;

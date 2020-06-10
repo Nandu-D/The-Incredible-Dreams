@@ -1,4 +1,3 @@
-import { Deserializable } from './deserializable.model';
 import { ImageDetailModel } from './image.details.model';
 
 export class ImageResponseModel  {

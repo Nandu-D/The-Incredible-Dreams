@@ -3,8 +3,7 @@
       <div class="hamburger-icon-container">
         <i mat-button class="material-icons hamburger-icon" [matMenuTriggerFor]="menu">menu</i>
         <mat-menu #menu="matMenu" class="menu-area mt-1">
-          <p class="firstp row">Login</p>
-          <p class="secondp row">Logout</p> 
+          <p class="secondp row" (click)="logout()">Logout</p> 
         </mat-menu>
       </div>
     </div>
