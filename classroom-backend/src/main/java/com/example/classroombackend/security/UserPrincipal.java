@@ -32,6 +32,18 @@ public class UserPrincipal implements UserDetails {
         this.authorities = authorities;
     }
 
+    public static UserPrincipal create(User user) {
+        List<GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(user.getRole()));
+
+        return new UserPrincipal(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
+                authorities
+        );
+    }
+
     public Long getId() {
         return id;
     }
