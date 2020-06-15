@@ -11,6 +11,8 @@ public class Screen {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    private String backgroundUrl;
+    private String notes;
     @ManyToOne
     private User user;
     @OneToMany(mappedBy = "screen")
@@ -24,6 +26,12 @@ public class Screen {
     public Screen(String name, User user) {
         this.name = name;
         this.user = user;
+    }
+
+    public Screen(String name, User user, String backgroundUrl) {
+        this.name = name;
+        this.user = user;
+        this.backgroundUrl = backgroundUrl;
     }
 
     public Screen(User user, List<Viewer> viewers, List<Group> groups) {
@@ -61,6 +69,22 @@ public class Screen {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getBackgroundUrl() {
+        return backgroundUrl;
+    }
+
+    public void setBackgroundUrl(String backgroundUrl) {
+        this.backgroundUrl = backgroundUrl;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public List<Viewer> getViewers() {
