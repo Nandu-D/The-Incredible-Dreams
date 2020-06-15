@@ -31,6 +31,6 @@ export class RegisterLoginLogoutService {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.clear();
   }
 }

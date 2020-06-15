@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/imageUrls").permitAll()//.hasRole("SCREEN_OWNER")
+                .antMatchers("/api/data/**").hasAuthority("SCREEN_OWNER")
                 .anyRequest()
                 .authenticated();
 

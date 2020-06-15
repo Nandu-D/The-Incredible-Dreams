@@ -7,6 +7,36 @@
         </mat-menu>
       </div>
     </div>
+
+    <div class="drag-drop-boundary">
+      <div class="drag-drop-box" cdkDrag cdkDragBoundary=".drag-drop-boundary"
+            [style.visibility]="text_drag_drop_visible ? 'visible' : 'hidden'">
+        <div class="drag-drop-icon">
+          <i class="material-icons" (click)="toggleTextDragDropVisibility()">close</i>
+        </div>
+        <textarea class="text-inside-drag-drop" [(ngModel)]="notes"
+            (ngModelChange)="noteChange()"> {{ notes }}
+        </textarea>
+      </div>
+      <div class="drag-drop-box" cdkDrag cdkDragBoundary=".drag-drop-boundary"
+            [style.visibility]="random_drag_drop_visible ? 'visible' : 'hidden'">
+        <div class="drag-drop-icon">
+          <i class="material-icons" (click)="toggleRandomDragDropVisibility()">close</i>
+        </div>
+        <textarea class="text-inside-drag-drop" [(ngModel)]="notes"
+            (ngModelChange)="noteChange()"> {{ notes }}
+        </textarea>
+      </div>
+      <div class="drag-drop-box" cdkDrag cdkDragBoundary=".drag-drop-boundary"
+            [style.visibility]="group_drag_drop_visible ? 'visible' : 'hidden'">
+        <div class="drag-drop-icon">
+          <i class="material-icons" (click)="toggleGroupDragDropVisibility()">close</i>
+        </div>
+        <textarea class="text-inside-drag-drop" [(ngModel)]="notes"
+            (ngModelChange)="noteChange()"> {{ notes }}
+        </textarea>
+      </div>
+    </div>
   
     <div class="menu-container mb-3">
       <div class="card menu-bar mx-auto">
@@ -18,28 +48,28 @@
             <p class="text-para my-1">Wallpaper</p>
           </div>
         </div>
-        <div class="card each-button">
+        <div class="card each-button" mat-button (click)="toggleRandomDragDropVisibility()">
           <div class="button-icon card-img-top">
-            <i class="material-icons">wallpaper</i>
+            <i class="material-icons">person</i>
           </div>
           <div class="button-text">
-            <p class="text-para my-1">Wallpaper</p>
+            <p class="text-para my-1">Random</p>
           </div>
         </div>
-        <div class="card each-button">
+        <div class="card each-button" mat-button (click)="toggleGroupDragDropVisibility()">
           <div class="button-icon card-img-top">
-            <i class="material-icons">wallpaper</i>
+            <i class="material-icons">group</i>
           </div>
           <div class="button-text">
-            <p class="text-para my-1">Wallpaper</p>
+            <p class="text-para my-1">Groups</p>
           </div>
         </div>
-        <div class="card each-button">
+        <div class="card each-button" mat-button (click)="toggleTextDragDropVisibility()">
           <div class="button-icon card-img-top">
-            <i class="material-icons">wallpaper</i>
+            <i class="material-icons">wysiwyg</i>
           </div>
           <div class="button-text">
-            <p class="text-para my-1">Wallpaper</p>
+            <p class="text-para my-1">Notes</p>
           </div>
         </div>
       </div>
