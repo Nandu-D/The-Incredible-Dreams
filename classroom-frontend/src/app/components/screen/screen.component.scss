@@ -10,9 +10,9 @@
     background-size: cover;
 }
 
-.site-content {
-    // flex: 1;
-}
+// .site-content {
+//      flex: 1;
+// }
 
 .hamburger-icon-container {
     display: flex;
@@ -25,22 +25,29 @@
 $color-black-50-opacity: #00000080;
 
 ::ng-deep .menu-area {
-    background-color: $color-black-50-opacity;
+    background-color: white;
     width: 10rem;
     height: 15rem;
     display: flex;
     flex-direction: column;
+    border: #ccc 0.5px solid;
 }
 
-::ng-deep .menu-area > .firstp {
-    width: 100%;
-    margin-left: 10px;
-    align-items: center;
-    flex: 2 !important;
-}
-
-::ng-deep .menu-area > .secondp {
+.secondp {
     flex: 1 !important;
+    padding: 10px;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.secondp:hover {
+    z-index: 1;
+    color: blue !important;
+    cursor: pointer;
+    transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+                0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
 .hamburger-icon {
@@ -117,6 +124,8 @@ $color-black-50-opacity: #00000080;
   
   .drag-drop-boundary {
     flex: 1;
+    display: flex;
+    flex-direction: row;
   }
 
   .text-inside-drag-drop {
@@ -125,6 +134,31 @@ $color-black-50-opacity: #00000080;
 
   .drag-drop-icon {
       display: flex;
-      flex-flow: row-reverse;
-      cursor: pointer;
+      flex-direction: row;
+      justify-content: space-between;
+  }
+
+  .close-icon-widget {
+    cursor: pointer;
+  }
+
+  .random-name {
+      font-weight: bold;
+  }
+
+  .group-limit-select-div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-flow: nowrap;
+      
+
+      mat-form-field {
+          display: block;
+          width: 100px;
+
+          input {
+              width: 100%;
+          }
+      }
   }

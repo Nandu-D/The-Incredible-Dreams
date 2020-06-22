@@ -1,9 +1,7 @@
 package com.example.classroombackend.model.jpa;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Screen {
@@ -13,12 +11,12 @@ public class Screen {
     private String name;
     private String backgroundUrl;
     private String notes;
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private User user;
-    @OneToMany(mappedBy = "screen")
-    private List<Viewer> viewers = new ArrayList<>();
-    @OneToMany(mappedBy = "screen")
-    private List<Group> groups = new ArrayList<>();
+    @OneToMany(mappedBy = "screen", cascade = CascadeType.REMOVE)
+    private Set<Viewer> viewers = new HashSet<>();
+    @OneToMany(mappedBy = "screen", cascade = CascadeType.REMOVE)
+    private Set<Group> groups = new HashSet<>();
 
     public Screen() {
     }
@@ -34,13 +32,13 @@ public class Screen {
         this.backgroundUrl = backgroundUrl;
     }
 
-    public Screen(User user, List<Viewer> viewers, List<Group> groups) {
+    public Screen(User user, Set<Viewer> viewers, Set<Group> groups) {
         this.user = user;
         this.viewers = viewers;
         this.groups = groups;
     }
 
-    public Screen(Long id, User user, List<Viewer> viewers, List<Group> groups) {
+    public Screen(Long id, User user, Set<Viewer> viewers, Set<Group> groups) {
         this.id = id;
         this.user = user;
         this.viewers = viewers;
@@ -87,19 +85,19 @@ public class Screen {
         this.notes = notes;
     }
 
-    public List<Viewer> getViewers() {
+    public Set<Viewer> getViewers() {
         return viewers;
     }
 
-    public void setViewers(List<Viewer> viewers) {
+    public void setViewers(Set<Viewer> viewers) {
         this.viewers = viewers;
     }
 
-    public List<Group> getGroups() {
+    public Set<Group> getGroups() {
         return groups;
     }
 
-    public void setGroups(List<Group> groups) {
+    public void setGroups(Set<Group> groups) {
         this.groups = groups;
     }
 

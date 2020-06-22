@@ -1,9 +1,7 @@
 package com.example.classroombackend.model.jpa;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "screen_group")
@@ -12,21 +10,21 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private Screen screen;
     @OneToMany(mappedBy = "group")
-    private List<Viewer> members = new ArrayList<>();
+    private Set<Viewer> members = new HashSet<>();
 
     public Group() {
     }
 
-    public Group(String name, Screen screen, List<Viewer> members) {
+    public Group(String name, Screen screen, Set<Viewer> members) {
         this.name = name;
         this.screen = screen;
         this.members = members;
     }
 
-    public Group(Long id, String name, Screen screen, List<Viewer> members) {
+    public Group(Long id, String name, Screen screen, Set<Viewer> members) {
         this.id = id;
         this.name = name;
         this.screen = screen;
@@ -57,11 +55,11 @@ public class Group {
         this.screen = screen;
     }
 
-    public List<Viewer> getMembers() {
+    public Set<Viewer> getMembers() {
         return members;
     }
 
-    public void setMembers(List<Viewer> members) {
+    public void setMembers(Set<Viewer> members) {
         this.members = members;
     }
 

@@ -14,12 +14,12 @@ export class NotesService {
     return this.http.post('http://localhost:8080/api/data/saveNotes',
       notesRequestModel).subscribe(
         (response: ApiResponse) => {
-          console.log("gor notes response: " + response.message);
+          console.log("got notes response: " + response.message);
         }
       );
   }
 
-  toggleNotesOpenInLocalStorage(isVisible: boolean, notes: string) {
+  toggleNotesOpenInLocalStorage(isVisible: boolean) {
     localStorage.setItem("isNotesVisible", isVisible ? "true" : "false");
   }
 

@@ -10,12 +10,18 @@ public class Viewer {
     private Long id;
     private String name;
     private String role;
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private Screen screen;
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private Group group;
 
     public Viewer() {
+    }
+
+    public Viewer(String name, String role, Screen screen) {
+        this.name = name;
+        this.role = role;
+        this.screen = screen;
     }
 
     public Viewer(String name, String role, Screen screen, Group group) {
