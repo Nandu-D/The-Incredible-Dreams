@@ -110,18 +110,18 @@ export class ScreenComponent implements OnInit {
 
   participantsChange(partticipantslist: string) {
     console.log("participants change");
-    const prevLength = this.participantsArray.length;
-    const eachParticipantArray = this.participants.split("\n");
-    this.participantsArray = eachParticipantArray.filter(value => value);
-    const currentLength = this.participantsArray.length;
-    console.log("prev len: " + prevLength + " current len: " + currentLength);
-    if(currentLength != prevLength) {
-      const namesRequestModel: NamesRequestModel = {
-        names: this.participantsArray
-      };
-      console.log("for api call " + namesRequestModel.names);
-      this.randomParticipantService.saveNames(namesRequestModel);
-    }
+   const prevLength = this.participantsArray.length;
+   const eachParticipantArray = this.participants.split("\n");
+   this.participantsArray = eachParticipantArray.filter(value => value);
+   const currentLength = this.participantsArray.length;
+   console.log("prev len: " + prevLength + " current len: " + currentLength);
+   if(currentLength != prevLength) {
+     const namesRequestModel: NamesRequestModel = {
+       names: this.participantsArray
+     };
+     console.log("for api call " + namesRequestModel.names);
+     this.randomParticipantService.saveNames(namesRequestModel);
+   }
   }
 
   chooseRandom() {
@@ -141,13 +141,13 @@ export class ScreenComponent implements OnInit {
 
   openRandomParticipantDialog(name: string) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = {
-      name: name
-    };
-    const dialogRef = this.dialog.open(RandomParticipantComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(
-      result => {}
-    );
+   dialogConfig.autoFocus = true;
+   dialogConfig.data = {
+     name: name
+   };
+   const dialogRef = this.dialog.open(RandomParticipantComponent, dialogConfig);
+   dialogRef.afterClosed().subscribe(
+     result => {}
+   );
   }
 }
