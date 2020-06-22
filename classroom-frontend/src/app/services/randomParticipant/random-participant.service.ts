@@ -20,12 +20,13 @@ export class RandomParticipantService {
   getNames() {
     return this.http.get("http://localhost:8080/api/data/getNames");
   }
-
+  
   toggleRandomOpenInLocalStorage(isVisible: boolean) {
     localStorage.setItem("isRandomVisible", isVisible ? "true" : "false");
   }
-
+  
   getRandomVisibilityLocalStorage(): boolean {
     return (localStorage.getItem("isRandomVisible") === "true") ? true : false;
   }
+ 
 }
