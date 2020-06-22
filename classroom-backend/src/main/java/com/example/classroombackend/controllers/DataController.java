@@ -106,7 +106,22 @@ public class DataController {
 
     @GetMapping("getNames")
     private SaveNamesRequest getNames() {
-    }
+        User user = getUser();
+        Screen screen = user.getScreens().iterator().next();
+        Set<Viewer> viewers = screen.getViewers();
+        List<String> names = new ArrayList<>();
+
+        Iterator<Viewer> iterator = viewers.iterator();
+        while (iterator.hasNext()) {
+            Viewer viewer = iterator.next();
+            String name = viewer.getName();
+            names.add(name);
+        }
+
+        return new SaveNamesRequest(names);
+
+
+}
 
     private User getUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
