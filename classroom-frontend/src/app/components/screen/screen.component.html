@@ -8,36 +8,58 @@
       </div>
     </div>
 
+    <!-- Initially hidden notes, random participant and groups -->
     <div class="drag-drop-boundary">
+      <!-- Notes -->
       <div class="drag-drop-box" cdkDrag cdkDragBoundary=".drag-drop-boundary"
             [style.visibility]="text_drag_drop_visible ? 'visible' : 'hidden'">
         <div class="drag-drop-icon">
-          <i class="material-icons" (click)="toggleTextDragDropVisibility()">close</i>
+          <h5>Notes</h5>
+          <i class="material-icons close-icon-widget" (click)="toggleTextDragDropVisibility()">close</i>
         </div>
         <textarea class="text-inside-drag-drop" [(ngModel)]="notes"
             (ngModelChange)="noteChange()"> {{ notes }}
         </textarea>
       </div>
+      <!-- Random participant -->
       <div class="drag-drop-box" cdkDrag cdkDragBoundary=".drag-drop-boundary"
             [style.visibility]="random_drag_drop_visible ? 'visible' : 'hidden'">
         <div class="drag-drop-icon">
-          <i class="material-icons" (click)="toggleRandomDragDropVisibility()">close</i>
+          <h5 class="random-heading">Random <span class="random-name">{{ randomHeading }}</span></h5>
+          <i class="material-icons close-icon-widget" (click)="toggleRandomDragDropVisibility()">close</i>
         </div>
-        <textarea class="text-inside-drag-drop" [(ngModel)]="notes"
-            (ngModelChange)="noteChange()"> {{ notes }}
+        <textarea class="text-inside-drag-drop" [(ngModel)]="participants" #participantslist
+            (keydown.enter)="participantsChange(participantslist.value)"
+            (keydown.backspace)="participantsChange(participantslist.value)"
+            placeholder="Please enter name of one participant per line"> {{ participants }}
         </textarea>
+        <div>
+          <button class="mat-raised-button" (click)="chooseRandom()">Choose Random</button>
+        </div>
       </div>
+      <!-- Group -->
       <div class="drag-drop-box" cdkDrag cdkDragBoundary=".drag-drop-boundary"
             [style.visibility]="group_drag_drop_visible ? 'visible' : 'hidden'">
         <div class="drag-drop-icon">
-          <i class="material-icons" (click)="toggleGroupDragDropVisibility()">close</i>
+          <h5>Group</h5>
+          <i class="material-icons close-icon-widget" (click)="toggleGroupDragDropVisibility()">close</i>
         </div>
-        <textarea class="text-inside-drag-drop" [(ngModel)]="notes"
-            (ngModelChange)="noteChange()"> {{ notes }}
-        </textarea>
+        <textarea class="text-inside-drag-drop" [(ngModel)]="participants" #list
+            (keydown.enter)="groupChange(list.value)"
+            (keydown.backspace)="groupChange(list.value)"
+            placeholder="Please enter name of one participant per line"> 
+            {{ participants }}
+        </textarea> 
+        <div class="group-limit-select-div">
+          <mat-form-field>
+            <input matInput type="number" placeholder="Group max size" min="1" [(ngModel)]="maxNoInAGroup">
+          </mat-form-field>
+          <button>Select</button>
+        </div>
       </div>
     </div>
   
+    <!-- Bottom menu -->
     <div class="menu-container mb-3">
       <div class="card menu-bar mx-auto">
         <div class="card each-button" mat-button (click)="openDialog()">
@@ -75,4 +97,4 @@
       </div>
     </div>
   
-  </div>
+</div>

@@ -5,6 +5,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
     imports: [
@@ -13,6 +14,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         MatMenuModule,
         MatCardModule,
         MatToolbarModule,
+        MatInputModule,
         DragDropModule
     ],
     exports: [
@@ -20,6 +22,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         MatMenuModule,
         MatCardModule,
         MatToolbarModule,
+        MatInputModule,
         DragDropModule
     ],
     providers: [

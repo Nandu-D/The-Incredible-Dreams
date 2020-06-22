@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BackgroundComponent } from './backgroundDialog/background.component';
+import { BackgroundComponent } from './dialogs/backgroundDialog/background.component';
 import { HomeComponent } from './components/home/home.component';
 import { ScreenComponent } from './components/screen/screen.component';
 import { AngularMaterialModule } from './angular-material.module';
@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { RegisterLoginLogoutService } from './services/register-logon-logout/register-login-logout.service';
 import { AuthGuard } from './auth/auth.guard';
 import { TokenInterceptorService } from './auth/token-interceptor.service';
+import { RandomParticipantComponent } from './dialogs/randomParticipantDialog/random-participant/random-participant.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TokenInterceptorService } from './auth/token-interceptor.service';
     HomeComponent,
     ScreenComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    RandomParticipantComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import { TokenInterceptorService } from './auth/token-interceptor.service';
     useClass: TokenInterceptorService,
     multi: true
   }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [BackgroundComponent, RandomParticipantComponent]
 })
 export class AppModule { }
