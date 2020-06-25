@@ -150,4 +150,26 @@ export class ScreenComponent implements OnInit {
      result => {}
    );
   }
+
+  openGroupsDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      groups: this.groupsList
+    };
+    const dialogRef = this.dialog.open(GroupsComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {}
+    );   
+  }
+  
+  isGroupsAlreadyThere() {
+    if (this.groupsList) {
+      if (this.groupsList.length > 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+ 
 }

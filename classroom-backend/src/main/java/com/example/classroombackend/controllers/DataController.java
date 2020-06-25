@@ -122,6 +122,29 @@ public class DataController {
 
 
 }
+    @GetMapping("getGroups")
+    private List<SaveGroupsRequest> getGroups() {
+        List<SaveGroupsRequest> groupsList = new ArrayList<>();
+
+        User user = getUser();
+        Screen screen = user.getScreens().iterator().next();
+        List<Viewer> viewers = new ArrayList<>(screen.getViewers());
+        List<Group> groups = new ArrayList<>(screen.getGroups());
+
+        for (Group group: groups) {
+            SaveGroupsRequest item = new SaveGroupsRequest();
+            item.setGroupName(group.getName());
+            List<String> members = viewers.stream()
+                    .filter(e -> e.getGroup().getId() == group.getId())
+                    .map(Viewer::getName)
+                    .collect(Collectors.toList());
+            item.setMembers(members);
+
+            groupsList.add(item);
+        }
+
+        return groupsList;
+    }
 
     private User getUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
