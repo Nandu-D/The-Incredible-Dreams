@@ -71,9 +71,8 @@ public class AuthController {
 
         // Creating user's account
         User user = new User();
-        List<Screen> defaultScreen = Arrays.asList(new Screen("default", user));
         user = new User(signUpRequest.getName(),
-                signUpRequest.getEmail(), signUpRequest.getPassword(), "SCREEN_OWNER");
+                signUpRequest.getEmail(), passwordEncoder.encode(signUpRequest.getPassword()), "SCREEN_OWNER");
         Screen relatedScreen = new Screen("default screen", user);
         user.getScreens().add(relatedScreen);
         User result = userRepository.save(user);

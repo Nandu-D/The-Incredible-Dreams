@@ -45,17 +45,17 @@
           <i class="material-icons close-icon-widget" (click)="toggleGroupDragDropVisibility()">close</i>
         </div>
         <textarea class="text-inside-drag-drop" [(ngModel)]="participants" #list
-            (keydown.enter)="groupChange(list.value)"
-            (keydown.backspace)="groupChange(list.value)"
+            (keydown.enter)="participantsChange(list.value)"
+            (keydown.backspace)="participantsChange(list.value)"
             placeholder="Please enter name of one participant per line"> 
             {{ participants }}
         </textarea> 
         <div class="group-limit-select-div">
-          <mat-form-field>
+          <mat-form-field [ngStyle]="getMatFormFieldStyles()">
             <input matInput type="number" placeholder="Group max size" min="1" [(ngModel)]="maxNoInAGroup">
           </mat-form-field>
           <button (click)="openGroupsDialog()" *ngIf="isGroupsAlreadyThere()">Show</button>
-          <button>Select</button>
+          <button (click)="selectGroups()">Select</button>
         </div>
       </div>
     </div>

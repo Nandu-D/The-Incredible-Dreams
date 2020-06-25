@@ -14,6 +14,6 @@ export class TokenInterceptorService {
         headers: req.headers.set('Authorization', 'Bearer ' + authService.getToken())
       }
     )
-    return next.handle(tokenizedReq)
+    return next.handle(tokenizedReq);
   }
 }

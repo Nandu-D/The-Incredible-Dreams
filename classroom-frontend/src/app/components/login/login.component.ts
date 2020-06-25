@@ -42,18 +42,16 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.errorMessage = "";
-   if (this.email === "" || this.password === "") {
-     this.errorMessage = "Please enter your email and password"
-   } else {
-     const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-     const isEmailValid = regexp.test(this.email);
-     if (!isEmailValid) {
-       this.errorMessage = "Please enter a valid email";
-     }
+    if (this.email === "" || this.password === "") {
+      this.errorMessage = "Please enter your email and password"
+    } else {
+      const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+      const isEmailValid = regexp.test(this.email);
+      if (!isEmailValid) {
+        this.errorMessage = "Please enter a valid email";
+      }
     }
-    
     if (this.errorMessage === "") {
-      console.log("login api call");
       this.loginPostRequest = {
         email: this.email,
         password: this.password
@@ -61,14 +59,10 @@ export class LoginComponent implements OnInit {
       this.registerLoginLogoutService.loginUser(this.loginPostRequest)
         .subscribe(
           (response: LoginResponse) => {
-            console.log("login response" + response);
-            console.log('token ' + response.accessToken);
             this.registerLoginLogoutService.saveTokenInLocalStorage(response.accessToken);
             this.router.navigate(['../screen']);
           },
           error => {
-            console.log("error in login status :\n" + Object.getOwnPropertyNames(error) 
-              + "\nstatus " + error.status + " : text: " + error.statusText);
             this.errorMessage = "An error occured. Please try again";
           }
       );

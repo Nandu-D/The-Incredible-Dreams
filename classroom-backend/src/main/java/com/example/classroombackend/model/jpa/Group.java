@@ -18,6 +18,11 @@ public class Group {
     public Group() {
     }
 
+    public Group(String name, Screen screen) {
+        this.name = name;
+        this.screen = screen;
+    }
+
     public Group(String name, Screen screen, Set<Viewer> members) {
         this.name = name;
         this.screen = screen;

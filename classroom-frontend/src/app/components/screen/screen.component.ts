@@ -12,6 +12,9 @@ import { RandomParticipantService } from 'src/app/services/randomParticipant/ran
 import { GroupsService } from 'src/app/services/groups/groups.service';
 import { RandomParticipantComponent } from 'src/app/dialogs/randomParticipantDialog/random-participant/random-participant.component';
 import { NamesRequestModel } from 'src/app/models/names.request.model';
+import { GroupsComponent } from 'src/app/dialogs/groupsDialog/groups/groups.component';
+import { GroupsModel } from 'src/app/models/groups.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-screen',
@@ -30,6 +33,7 @@ export class ScreenComponent implements OnInit {
   randomHeading: string;
   participantsArray: string[] = [];
   maxNoInAGroup = 3;
+  groupsList: GroupsModel[]; 
 
   constructor(public dialog: MatDialog, 
     private registerLoginLogoutServcie: RegisterLoginLogoutService,
@@ -37,10 +41,10 @@ export class ScreenComponent implements OnInit {
     private backgroundService: BackgroundImageService,
     private notesService: NotesService,
     private randomParticipantService: RandomParticipantService,
-    private groupsService: GroupsService) {}
+    private groupsService: GroupsService,
+    private http: HttpClient) {}
 
   ngOnInit(): void {
-    console.log('in screen');
     this.text_drag_drop_visible = false;
     this.backgroundService.getSavedImageUrl().subscribe(
       (result: ApiResponse) => {
@@ -64,9 +68,14 @@ export class ScreenComponent implements OnInit {
 
     this.randomParticipantService.getNames().subscribe(
       (response: NamesRequestModel) => {
-        console.log("get Names: " + response.names);
         this.participantsArray = response.names;
         this.participants = this.participantsArray.join("\n");
+      }
+    );
+
+    this.groupsService.getGroups().subscribe(
+      (response: GroupsModel[]) => {
+        this.groupsList = response;
       }
     );
   }
@@ -109,29 +118,72 @@ export class ScreenComponent implements OnInit {
   }
 
   participantsChange(partticipantslist: string) {
-    console.log("participants change");
    const prevLength = this.participantsArray.length;
    const eachParticipantArray = this.participants.split("\n");
    this.participantsArray = eachParticipantArray.filter(value => value);
    const currentLength = this.participantsArray.length;
-   console.log("prev len: " + prevLength + " current len: " + currentLength);
    if(currentLength != prevLength) {
      const namesRequestModel: NamesRequestModel = {
        names: this.participantsArray
      };
-     console.log("for api call " + namesRequestModel.names);
      this.randomParticipantService.saveNames(namesRequestModel);
    }
   }
 
   chooseRandom() {
+    const eachParticipantArray = this.participants.split("\n");
+    this.participantsArray = eachParticipantArray.filter(value => value);
     const randomStudent = this.participantsArray[Math.floor(Math.random() * this.participantsArray.length)];
     this.openRandomParticipantDialog(randomStudent);
     this.randomHeading = "- " + randomStudent;
+
+    const namesRequestModel: NamesRequestModel = {
+      names: this.participantsArray
+    };
+    this.randomParticipantService.saveNames(namesRequestModel);
   }
 
-  groupChange(grouplist: string) {
-    console.log("group\n" + grouplist);
+  selectGroups() {
+    const eachParticipantArray = this.participants.split("\n");
+    this.participantsArray = eachParticipantArray.filter(value => value);
+
+    const groups = {};
+    const noOfGroups = Math.ceil(this.participantsArray.length / this.maxNoInAGroup);
+
+    let tempArray = [...this.participantsArray];
+    for (let i = 0; i < noOfGroups; i++) {
+      groups[i] = [];
+      for (let j = 0; (j < this.maxNoInAGroup && tempArray.length > 0); j++) {
+        const randomIndex = Math.floor(Math.random() * tempArray.length);
+        groups[i].push(tempArray[randomIndex]);
+        tempArray.splice(randomIndex, 1);
+      }
+    }
+
+    if (this.participantsArray.length > 0) {
+      const namesRequestModel: NamesRequestModel = {
+        names: this.participantsArray
+      };
+
+      this.groupsList = [];
+      for (let i in groups) {
+        const groupname = "Group " + (+i + 1);
+        const groupModel: GroupsModel = {
+          groupName: groupname,
+          members: groups[i]
+        };
+        this.groupsList.push(groupModel);
+      }
+
+      this.http.post('http://localhost:8080/api/data/saveNames',namesRequestModel)
+      .subscribe(
+        (response: ApiResponse) => {
+          this.groupsService.saveGroups(this.groupsList);  
+        }
+      );
+
+      this.openGroupsDialog();
+    }
   }
 
   toggleGroupDragDropVisibility() {
@@ -141,14 +193,14 @@ export class ScreenComponent implements OnInit {
 
   openRandomParticipantDialog(name: string) {
     const dialogConfig = new MatDialogConfig();
-   dialogConfig.autoFocus = true;
-   dialogConfig.data = {
-     name: name
-   };
-   const dialogRef = this.dialog.open(RandomParticipantComponent, dialogConfig);
-   dialogRef.afterClosed().subscribe(
-     result => {}
-   );
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      name: name
+    };
+    const dialogRef = this.dialog.open(RandomParticipantComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {}
+    );
   }
 
   openGroupsDialog() {
@@ -170,6 +222,12 @@ export class ScreenComponent implements OnInit {
       }
     }
     return false;
+  } 
+
+  getMatFormFieldStyles() {
+    const styles = {
+      'width': this.isGroupsAlreadyThere() ? '60px' : '100px'
+    }
+    return styles;
   }
- 
 }

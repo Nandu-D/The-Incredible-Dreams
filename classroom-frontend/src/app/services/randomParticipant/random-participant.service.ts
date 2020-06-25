@@ -13,7 +13,9 @@ export class RandomParticipantService {
   saveNames(namesRequestModel: NamesRequestModel) {
     return this.http.post('http://localhost:8080/api/data/saveNames',namesRequestModel)
       .subscribe(
-        (response: ApiResponse) => {}
+        (response: ApiResponse) => {
+          return true;
+        }
       );
   }
 
@@ -27,6 +29,5 @@ export class RandomParticipantService {
   
   getRandomVisibilityLocalStorage(): boolean {
     return (localStorage.getItem("isRandomVisible") === "true") ? true : false;
-  }
- 
+  } 
 }

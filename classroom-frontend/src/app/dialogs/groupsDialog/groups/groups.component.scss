@@ -1,0 +1,14 @@
+mat-dialog-content {
+    display: flex;
+    flex-flow: row wrap;
+
+    mat-card {
+        border: 1px solid black;
+        margin: 5px;
+    }
+}
+
+mat-dialog-actions {
+    display: flex;
+    flex-direction: row-reverse;
+}

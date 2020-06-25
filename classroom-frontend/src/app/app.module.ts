@@ -17,6 +17,7 @@ import { RegisterLoginLogoutService } from './services/register-logon-logout/reg
 import { AuthGuard } from './auth/auth.guard';
 import { TokenInterceptorService } from './auth/token-interceptor.service';
 import { RandomParticipantComponent } from './dialogs/randomParticipantDialog/random-participant/random-participant.component';
+import { GroupsComponent } from './dialogs/groupsDialog/groups/groups.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { RandomParticipantComponent } from './dialogs/randomParticipantDialog/ra
     ScreenComponent,
     LoginComponent,
     RegisterComponent,
-    RandomParticipantComponent
+    RandomParticipantComponent,
+    GroupsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,6 @@ import { RandomParticipantComponent } from './dialogs/randomParticipantDialog/ra
     multi: true
   }],
   bootstrap: [AppComponent],
-  entryComponents: [BackgroundComponent, RandomParticipantComponent]
+  entryComponents: [BackgroundComponent, RandomParticipantComponent, GroupsComponent]
 })
 export class AppModule { }

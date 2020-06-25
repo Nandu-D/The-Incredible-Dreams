@@ -23,7 +23,7 @@ export class RegisterLoginLogoutService {
   }
 
   getToken() {
-    return localStorage.getItem('token')
+    return localStorage.getItem('token');
   }
 
   isLoggedIn(): boolean {

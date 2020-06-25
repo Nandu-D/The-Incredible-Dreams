@@ -1,18 +1,20 @@
 package com.example.classroombackend.controllers;
 
 import com.example.classroombackend.exception.ResourceNotFoundException;
+import com.example.classroombackend.model.jpa.Group;
 import com.example.classroombackend.model.jpa.Screen;
 import com.example.classroombackend.model.jpa.User;
 import com.example.classroombackend.model.jpa.Viewer;
+import com.example.classroombackend.model.request.SaveGroupsRequest;
 import com.example.classroombackend.model.request.SaveNamesRequest;
 import com.example.classroombackend.model.request.SaveNotesRequest;
 import com.example.classroombackend.model.request.SetBackgroundRequest;
 import com.example.classroombackend.model.response.ApiResponse;
 import com.example.classroombackend.model.response.UnsplashImageUrlList;
+import com.example.classroombackend.repository.jpa.GroupRepository;
 import com.example.classroombackend.repository.jpa.ScreenRepository;
 import com.example.classroombackend.repository.jpa.UserRepository;
 import com.example.classroombackend.repository.jpa.ViewerRepository;
-import com.example.classroombackend.security.CustomUserDetailsService;
 import com.example.classroombackend.security.JwtTokenProvider;
 import com.example.classroombackend.security.UserPrincipal;
 import com.example.classroombackend.services.UnsplashImagesService;
@@ -22,6 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -33,6 +36,8 @@ public class DataController {
     private UserRepository userRepository;
     @Autowired
     private ScreenRepository screenRepository;
+    @Autowired
+    private GroupRepository groupRepository;
     @Autowired
     private ViewerRepository viewerRepository;
     @Autowired
@@ -90,18 +95,17 @@ public class DataController {
         List<String> namesArray = saveNamesRequest.getNames();
         Optional<List<Viewer>> viewersOptional = viewerRepository.findAllByScreen(screen);
         viewersOptional.ifPresent((items) -> {
-            for (Viewer viewer: items) {
+            for (Viewer viewer : items) {
                 viewerRepository.delete(viewer);
             }
         });
         Set<Viewer> viewers = new HashSet<>();
-        for (String name: namesArray) {
+        for (String name : namesArray) {
             Viewer viewer = new Viewer(name, "SCREEN_VIEWER", screen);
             viewers.add(viewerRepository.save(viewer));
         }
-        screen.setViewers(viewers);
 
-        return new ApiResponse(true, "Saved elements");
+        return new ApiResponse(true, "Saved participant names");
     }
 
     @GetMapping("getNames")
@@ -119,9 +123,42 @@ public class DataController {
         }
 
         return new SaveNamesRequest(names);
+    }
 
+    @PostMapping("saveGroups")
+    private ApiResponse saveGroups(@RequestBody List<SaveGroupsRequest> groupsRequestList) {
+        User user = getUser();
+        Screen screen = user.getScreens().iterator().next();
+        Optional<List<Group>> groupsOptional = groupRepository.findAllByScreen(screen);
+        groupsOptional.ifPresent((groups) -> {
+            for (Group group : groups) {
+                groupRepository.delete(group);
+            }
+        });
 
-}
+        Set<Group> groupsSet = new HashSet<>();
+        Set<Viewer> viewers = screen.getViewers();
+
+        for (SaveGroupsRequest group: groupsRequestList) {
+            Group newGroup = groupRepository.save(new Group(group.getGroupName(), screen));
+            List<String> members = group.getMembers();
+            for (String memberName: members) {
+                for (Viewer viewer: viewers) {
+                    if (viewer.getGroup() == null && viewer.getName().equals(memberName)) {
+                        viewer.setGroup(newGroup);
+                        newGroup.getMembers().add(viewer);
+                        break;
+                    }
+                }
+            }
+            groupsSet.add(newGroup);
+        }
+        groupRepository.saveAll(groupsSet);
+        viewerRepository.saveAll(viewers);
+
+        return new ApiResponse(true, "Saved groups");
+    }
+
     @GetMapping("getGroups")
     private List<SaveGroupsRequest> getGroups() {
         List<SaveGroupsRequest> groupsList = new ArrayList<>();

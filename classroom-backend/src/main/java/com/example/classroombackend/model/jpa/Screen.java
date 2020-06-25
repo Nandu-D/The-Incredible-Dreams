@@ -13,9 +13,9 @@ public class Screen {
     private String notes;
     @ManyToOne(fetch=FetchType.LAZY)
     private User user;
-    @OneToMany(mappedBy = "screen", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL)
     private Set<Viewer> viewers = new HashSet<>();
-    @OneToMany(mappedBy = "screen", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL)
     private Set<Group> groups = new HashSet<>();
 
     public Screen() {

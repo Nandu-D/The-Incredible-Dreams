@@ -28,12 +28,20 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    this.errorMessage = "";
     this.requestBody = new RegisterPostRequest();
-    console.log("register clicked");
-    if (!(this.password === this.confirmpassword)) {
-      this.errorMessage = "Password does not match. Please try again";
+    if (this.firstname === "" || this.lastname === "" || this.email === "" || this.password === "" || this.confirmpassword === "") {
+      this.errorMessage = "Please enter all the details";
     } else {
-      this.errorMessage = "";
+      const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+      const isEmailValid = regexp.test(this.email);
+      if (isEmailValid) {
+        if (!(this.password === this.confirmpassword)) {
+          this.errorMessage = "Password does not match. Please try again";
+        }
+      } else {
+        this.errorMessage = "Please enter a valid email";
+      }
     }
 
     if (this.errorMessage === "") {
@@ -42,15 +50,12 @@ export class RegisterComponent implements OnInit {
         email : this.email,
         password : this.password
       }
-      console.log(this.requestBody);
 
       this.registerbackendcallservice.registerUser(this.requestBody).subscribe(
         (response) => {
-          console.log("response" + response);
           this.router.navigate(['../home'], {queryParams: {register_success: true}});
         },
         (error) => {
-          console.log("register error\n" + error);
           this.errorMessage = "An error occured. Please try again";
           this.router.navigate(['../home'], {queryParams: {register_success: false}});
         }

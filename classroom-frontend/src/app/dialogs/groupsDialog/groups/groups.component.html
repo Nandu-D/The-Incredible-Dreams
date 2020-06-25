@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Groups</h1>
+<mat-dialog-content>
+    <mat-card *ngFor="let item of data.groups">
+        <mat-card-header>
+            <mat-card-title>
+                {{item.groupName}}
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div *ngFor="let name of item.members">
+                {{name}}
+            </div>
+        </mat-card-content>
+    </mat-card>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
