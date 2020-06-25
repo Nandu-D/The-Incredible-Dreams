@@ -41,12 +41,17 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log("login start");
-    if (this.email === "" || this.password === "") {
-      this.errorMessage = "Invalid input"
-    } else {
-      this.errorMessage = "";
+    this.errorMessage = "";
+   if (this.email === "" || this.password === "") {
+     this.errorMessage = "Please enter your email and password"
+   } else {
+     const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+     const isEmailValid = regexp.test(this.email);
+     if (!isEmailValid) {
+       this.errorMessage = "Please enter a valid email";
+     }
     }
+    
     if (this.errorMessage === "") {
       console.log("login api call");
       this.loginPostRequest = {
