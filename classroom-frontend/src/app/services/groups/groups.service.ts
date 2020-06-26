@@ -17,7 +17,7 @@ export class GroupsService {
           console.log("save groups response: " + response.message);
         }
       );
-  } 
+  }
 
   getGroups() {
     return this.http.get("http://localhost:8080/api/data/getGroups");

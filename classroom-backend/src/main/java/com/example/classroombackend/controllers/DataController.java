@@ -172,7 +172,7 @@ public class DataController {
             SaveGroupsRequest item = new SaveGroupsRequest();
             item.setGroupName(group.getName());
             List<String> members = viewers.stream()
-                    .filter(e -> e.getGroup().getId() == group.getId())
+                    .filter(e -> e.getGroup().getId().equals(group.getId()))
                     .map(Viewer::getName)
                     .collect(Collectors.toList());
             item.setMembers(members);
