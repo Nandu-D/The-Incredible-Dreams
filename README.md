@@ -30,6 +30,17 @@ Angular - from inside the folder "classroom-frontend" execute the following comm
 Spring Boot - from inside the folder "classroom-backend" execute the following command
 
     mvn clean install
+    
+### Libraries Used
+
+Angular 
+Angular Material
+
+Spring Boot
+spring-boot-starter-web
+spring-boot-starter-data-jpa
+spring-boot-starter-security
+mysql-connector-java
 
 ## Deployment
 
